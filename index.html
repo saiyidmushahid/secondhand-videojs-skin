@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secondhand — a Video.js v10 skin that takes time seriously</title>
+<meta name="description" content="Secondhand is a custom skin for the Video.js v10 player: a second-hand progress ring, a minute-ruled timeline with chapters, and time you can read at a glance.">
+<link rel="stylesheet" href="skin.css">
+</head>
+<body>
+<header class="page-head">
+  <div class="wordmark">SECOND<span>HAND</span></div>
+  <p class="tagline">A Video.js v10 skin that takes time seriously.</p>
+</header>
+
+<main>
+  <video-player id="shPlayer">
+    <media-container class="sh-stage" id="shStage">
+      <hlsjs-video slot="media" id="shVideo" playsinline preload="metadata" crossorigin="anonymous"
+             poster="https://image.mux.com/xHdOULPcXIZZaLIaLONfjOWigMq2wdP7thAbgw3EEjQ/thumbnail.jpg?time=30&width=1280"
+             src="https://stream.mux.com/xHdOULPcXIZZaLIaLONfjOWigMq2wdP7thAbgw3EEjQ.m3u8">
+        <track kind="chapters" label="Chapters" src="chapters.vtt" default>
+      </hlsjs-video>
+
+      <div class="sh-topbar">
+        <div class="sh-title-chip">Green <em>by GawxArt, via Mux</em></div>
+        <div class="sh-chapter-chip" id="chapterChip">Into the canopy</div>
+      </div>
+
+      <div class="sh-center" id="centerWrap">
+        <svg class="sh-ring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="sh-ring-track" cx="60" cy="60" r="54"></circle>
+          <circle class="sh-ring-fill" id="ringFill" cx="60" cy="60" r="54"></circle>
+          <line class="sh-ring-hand" id="ringHand" x1="60" y1="60" x2="60" y2="10"></line>
+          <circle class="sh-ring-dot" id="ringDot" cx="60" cy="6" r="3.5"></circle>
+        </svg>
+        <media-play-button class="sh-bigplay" aria-label="Play or pause">
+          <media-icon name="restart" class="sh-ic-restart"></media-icon>
+          <media-icon name="play" class="sh-ic-play"></media-icon>
+          <media-icon name="pause" class="sh-ic-pause"></media-icon>
+        </media-play-button>
+      </div>
+
+      <div class="sh-readout" id="readout">
+        <div class="sh-readout-time" id="readoutTime">00:00</div>
+        <div class="sh-readout-chapter" id="readoutChapter">Into the canopy</div>
+      </div>
+
+      <div class="sh-bottom">
+        <div class="sh-ruler" id="ruler" aria-hidden="true"></div>
+        <media-time-slider class="sh-slider">
+          <media-slider-preview class="sh-preview">
+            <media-slider-value class="sh-preview-value"></media-slider-value>
+          </media-slider-preview>
+          <media-slider-track class="sh-slider-track">
+            <media-slider-buffer class="sh-slider-buffer"></media-slider-buffer>
+            <media-slider-fill class="sh-slider-fill"></media-slider-fill>
+          </media-slider-track>
+          <media-slider-thumb class="sh-slider-thumb"></media-slider-thumb>
+        </media-time-slider>
+
+        <div class="sh-console">
+          <media-play-button class="sh-btn" aria-label="Play or pause">
+            <media-icon name="restart"></media-icon>
+            <media-icon name="play"></media-icon>
+            <media-icon name="pause"></media-icon>
+          </media-play-button>
+          <media-seek-button class="sh-btn" seconds="-10" aria-label="Back 10 seconds">
+            <media-icon name="seek"></media-icon><span class="sh-seek-label">10</span>
+          </media-seek-button>
+          <media-seek-button class="sh-btn" seconds="10" aria-label="Forward 10 seconds">
+            <media-icon name="seek"></media-icon><span class="sh-seek-label">10</span>
+          </media-seek-button>
+          <div class="sh-volume">
+            <media-mute-button class="sh-btn" aria-label="Mute or unmute">
+              <media-icon name="volume-off"></media-icon>
+              <media-icon name="volume-low"></media-icon>
+              <media-icon name="volume-high"></media-icon>
+            </media-mute-button>
+            <media-volume-slider class="sh-volslider">
+              <media-slider-track class="sh-voltrack">
+                <media-slider-fill class="sh-volfill"></media-slider-fill>
+              </media-slider-track>
+              <media-slider-thumb class="sh-volthumb"></media-slider-thumb>
+            </media-volume-slider>
+          </div>
+          <div class="sh-time">
+            <media-time type="current"></media-time>
+            <span class="sh-time-sep">/</span>
+            <media-time type="duration"></media-time>
+          </div>
+          <div class="sh-spacer"></div>
+          <div class="sh-console-chapter" id="consoleChapter">Into the canopy</div>
+          <button type="button" class="sh-btn sh-rate" id="rateBtn" aria-label="Playback speed">1&times;</button>
+          <media-pip-button class="sh-btn" aria-label="Picture in picture">
+            <media-icon name="pip-enter"></media-icon>
+            <media-icon name="pip-exit"></media-icon>
+          </media-pip-button>
+          <media-fullscreen-button class="sh-btn" aria-label="Fullscreen">
+            <media-icon name="fullscreen-enter"></media-icon>
+            <media-icon name="fullscreen-exit"></media-icon>
+          </media-fullscreen-button>
+        </div>
+      </div>
+    </media-container>
+  </video-player>
+
+  <section class="notes">
+    <article>
+      <h2>The second hand</h2>
+      <p>The big play button carries a clock ring. The hand sweeps the whole film, not the minute, so one glance tells you how far through the story you are. The ring fills in teal behind it.</p>
+    </article>
+    <article>
+      <h2>A ruled timeline</h2>
+      <p>The seek bar sits on a ruler: a tick every 10 seconds, a tall tick and a label every minute, amber breaks where chapters change. Scrubbing shows the exact time in big mono type before you let go.</p>
+    </article>
+    <article>
+      <h2>Time, set in type</h2>
+      <p>Every number is tabular mono, sized to read across the room. The current chapter is always named, top right and in the console, so you never scrub blind.</p>
+    </article>
+  </section>
+
+  <section class="keys">
+    <h2>Keyboard first</h2>
+    <p><kbd>Space</kbd> or <kbd>K</kbd> play and pause &nbsp; <kbd>J</kbd> / <kbd>L</kbd> back and forward 10s &nbsp; <kbd>&larr;</kbd> <kbd>&rarr;</kbd> 5s &nbsp; <kbd>M</kbd> mute &nbsp; <kbd>F</kbd> fullscreen &nbsp; <kbd>0</kbd> to <kbd>9</kbd> jump to a tenth of the film. Visible focus rings everywhere, and motion calms down when your system asks for reduced motion.</p>
+  </section>
+
+  <footer class="page-foot">
+    <p>Secondhand: an ejected Video.js v10 skin, rebuilt from the player's own components and restyled end to end. Film: Green by GawxArt, streamed by Mux (public playback ID shared in the challenge guidelines). Entry for the Video.js Skins Design Challenge on Contra.</p>
+  </footer>
+</main>
+
+<script type="module" src="skin.bundle.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
